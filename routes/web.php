@@ -37,3 +37,7 @@ Route::get('/rota2', function() {
 })->name('site.rota2');
 
 //Route::redirect('/rota2', '/rota1');
+
+Route::fallback(function() {
+    echo 'Recurso Não Localizado. <a href="'.route('site.index').'">Voltar para Página Inicial</a>';
+});

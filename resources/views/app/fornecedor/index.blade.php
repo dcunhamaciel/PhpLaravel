@@ -18,11 +18,11 @@
 
 @isset($fornecedores)
     @forelse($fornecedores as $fornecedor)
-        Fornecedor: {{ $fornecedor['nome'] }}
+        Fornecedor: @{{ $fornecedor['nome'] }}
         <br/>
-        Status: {{ $fornecedor['status'] }}
+        Status: @{{ $fornecedor['status'] }}
         <br/>
-        Telefone: ({{ $fornecedor['ddd'] ?? '' }}) {{ $fornecedores[1]['telefone'] ?? '' }}
+        Telefone: (@{{ $fornecedor['ddd'] ?? '' }}) @{{ $fornecedores[1]['telefone'] ?? '' }}
         <hr>
     @empty
         Não existem fornecedores cadastrados

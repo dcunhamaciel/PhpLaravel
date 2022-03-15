@@ -13,8 +13,6 @@ class FornecedorController extends Controller
             2 => ['nome' => 'Fornecedor 3', 'status' => 'N', 'ddd' => '32', 'telefone' => '0000-0000']
         ];
 
-        $fornecedores = [];
-        
         return view("app.fornecedor.index", compact('fornecedores'));
     }
 }

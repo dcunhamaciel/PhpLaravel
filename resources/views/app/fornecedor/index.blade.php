@@ -17,12 +17,14 @@
 {{-- @unless executa se o retorno for false --}}
 
 @isset($fornecedores)
-    @foreach($fornecedores as $fornecedor)
+    @forelse($fornecedores as $fornecedor)
         Fornecedor: {{ $fornecedor['nome'] }}
         <br/>
         Status: {{ $fornecedor['status'] }}
         <br/>
         Telefone: ({{ $fornecedor['ddd'] ?? '' }}) {{ $fornecedores[1]['telefone'] ?? '' }}
         <hr>
-    @endforeach
+    @empty
+        Não existem fornecedores cadastrados
+    @endforelse
 @endisset

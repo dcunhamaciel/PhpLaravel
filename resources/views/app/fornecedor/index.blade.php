@@ -17,18 +17,12 @@
 {{-- @unless executa se o retorno for false --}}
 
 @isset($fornecedores)
-    @php
-        $i = 0;
-    @endphp
-    @while(isset($fornecedores[$i]))
-        Fornecedor: {{ $fornecedores[$i]['nome'] }}
+    @foreach($fornecedores as $fornecedor)
+        Fornecedor: {{ $fornecedor['nome'] }}
         <br/>
-        Status: {{ $fornecedores[$i]['status'] }}
+        Status: {{ $fornecedor['status'] }}
         <br/>
-        Telefone: ({{ $fornecedores[$i]['ddd'] ?? '' }}) {{ $fornecedores[1]['telefone'] ?? '' }}
+        Telefone: ({{ $fornecedor['ddd'] ?? '' }}) {{ $fornecedores[1]['telefone'] ?? '' }}
         <hr>
-        @php
-            $i++;
-        @endphp        
-    @endwhile
+    @endforeach
 @endisset

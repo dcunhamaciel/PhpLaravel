@@ -10,4 +10,7 @@ class Fornecedor extends Model
     use HasFactory;
 
     protected $table = 'fornecedores';
+
+    // indica que irá receber os atributos abaixo por array no método estático create
+    protected $fillable = ['nome', 'site', 'uf', 'email'];
 }

@@ -19,7 +19,7 @@ class ContatoController extends Controller
             'nome' => 'required|min:3|max:40',
             'telefone' => 'required',
             'email' => 'email',
-            'motivo_contato' => 'required',
+            'motivo_contatos_id' => 'required',
             'mensagem' => 'required|max:2000'
         ]);
         /*
@@ -39,5 +39,7 @@ class ContatoController extends Controller
         */
 
         SiteContato::create($request->all());
+
+        return redirect()->route('site.index');
     }
 }

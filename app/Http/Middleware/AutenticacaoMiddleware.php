@@ -14,8 +14,9 @@ class AutenticacaoMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $metodo_autenticacao)
     {
+        echo $metodo_autenticacao;
         //return $next($request);
         return Response('Acesso negado! Rota exige autenticação!!');
     }

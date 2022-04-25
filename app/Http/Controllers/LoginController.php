@@ -7,9 +7,14 @@ use App\Models\User;
 
 class LoginController extends Controller
 {
-    public function index() 
+    public function index(Request $request) 
     {
-        return view('site.login', ['titulo' => 'login']);
+        $erro = '';
+        if ($request->get('erro') == 1) {
+            $erro = 'Usuário/senha inválido.';
+        }
+
+        return view('site.login', ['titulo' => 'login', 'erro' => $erro]);
     }
 
     public function autenticar(Request $request) 
@@ -36,6 +41,6 @@ class LoginController extends Controller
             return 'Usuário existe.';
         } 
 
-        return 'Usuário Não existe.';
+        return redirect()->route('site.login', ['erro' => 1]);
     }
 }

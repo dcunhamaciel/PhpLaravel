@@ -43,6 +43,8 @@
                         @endforeach
                     </body>
                 </table>
+
+                {{ $fornecedores->appends($request)->links() }}
             </div>
         </div>        
     </div>

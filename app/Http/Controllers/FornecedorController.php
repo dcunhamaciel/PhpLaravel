@@ -7,11 +7,13 @@ use App\Models\Fornecedor;
 
 class FornecedorController extends Controller
 {
-    public function index() {
+    public function index() 
+    {
         return view('app.fornecedor.index');
     }
 
-    public function listar(Request $request) {
+    public function listar(Request $request) 
+    {
         $fornecedores = Fornecedor::where('nome', 'like', '%' . $request->input('nome') . '%')
             ->where('site', 'like', '%' . $request->input('site') . '%')
             ->where('uf', 'like', '%' . $request->input('uf') . '%')
@@ -21,8 +23,9 @@ class FornecedorController extends Controller
         return view('app.fornecedor.listar', ['fornecedores' => $fornecedores]);
     }
 
-    public function adicionar(Request $request) {
-        if ($request->input('_token') != '') {
+    public function adicionar(Request $request) 
+    {
+        if ($request->input('_token') != '' && $request->input('id') == '') {
             $regras = [
                 'nome' => 'required|min:3|max:40',
                 'site' => 'required',
@@ -43,8 +46,20 @@ class FornecedorController extends Controller
 
             $fornecedor = new Fornecedor();
             $fornecedor->create($request->all());
-        }
+        } else if ($request->input('_token') != '' && $request->input('id') != '') {
+            $fornecedor = Fornecedor::find($request->input('id'));
+            $fornecedor->update($request->all());
+
+            return redirect()->route('app.fornecedor.editar', ['id' => $fornecedor->id]);
+        }        
 
         return view('app.fornecedor.adicionar');
-    }    
+    }   
+    
+    public function editar($id)
+    {
+        $fornecedor = Fornecedor::find($id);
+
+        return view('app.fornecedor.adicionar', ['fornecedor' => $fornecedor]);
+    }
 }

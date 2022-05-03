@@ -40,7 +40,9 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Produto::create($request->all());
+
+        return redirect()->route('produto.index');
     }
 
     /**

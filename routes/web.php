@@ -39,6 +39,7 @@ Route::middleware('autenticacao:padrao')->prefix('/app')->group(function() {
     Route::get('/fornecedor/excluir/{id}', [\App\Http\Controllers\FornecedorController::class, 'excluir'])->name('app.fornecedor.excluir');
 
     Route::resource('produto', \App\Http\Controllers\ProdutoController::class);
+    Route::resource('produto-detalhe', \App\Http\Controllers\ProdutoDetalheController::class);
 });
 
 Route::get('/teste/{p1}/{p2}', [\App\Http\Controllers\TesteController::class, 'teste'])->name('site.teste');

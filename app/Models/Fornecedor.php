@@ -15,4 +15,8 @@ class Fornecedor extends Model
 
     // indica que irá receber os atributos abaixo por array no método estático create
     protected $fillable = ['nome', 'site', 'uf', 'email'];
+
+    public function produtos() {
+        return $this->hasMany('App\Models\Produto');
+    }
 }

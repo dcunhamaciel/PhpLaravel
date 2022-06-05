@@ -42,7 +42,9 @@ Route::middleware('autenticacao:padrao')->prefix('/app')->group(function() {
 
     Route::resource('cliente', \App\Http\Controllers\ClienteController::class);
     Route::resource('pedido', \App\Http\Controllers\PedidoController::class);
-    Route::resource('pedido-produto', \App\Http\Controllers\PedidoProdutoController::class);
+
+    Route::get('/pedido-produto/create/{pedido}', [\App\Http\Controllers\PedidoProdutoController::class, 'create'])->name('pedido-produto.create');
+    Route::post('/pedido-produto/store/{pedido}', [\App\Http\Controllers\PedidoProdutoController::class, 'store'])->name('pedido-produto.store');
 });
 
 Route::get('/teste/{p1}/{p2}', [\App\Http\Controllers\TesteController::class, 'teste'])->name('site.teste');

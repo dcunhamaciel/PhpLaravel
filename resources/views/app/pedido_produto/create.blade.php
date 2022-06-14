@@ -28,6 +28,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome do Produto</th>
+                            <th>Data de Inclusão</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +36,7 @@
                             <tr>
                                 <td>{{ $produto->id }}</td>
                                 <td>{{ $produto->nome }}</td>
+                                <td>{{ $produto->pivot->created_at }}</td>
                             </tr>
                         @endforeach
                     </tbody>

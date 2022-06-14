@@ -37,7 +37,7 @@
                     </thead>
 
                     <body>
-                        @foreach ($produtos as $produto)                        
+                        @foreach ($produtos as $produto)
                             <tr>
                                 <td>{{ $produto->nome }}</td>
                                 <td>{{ $produto->descricao }}</td>
@@ -56,6 +56,16 @@
                                         @method('DELETE')
                                         <a href="#" onclick="document.getElementById('form_{{ $produto->id }}').submit()">Excluir</a>
                                     </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12">
+                                    <p>Pedidos</p>
+                                    @foreach ($produto->pedidos as $pedido)
+                                        <a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">
+                                            Pedido: {{ $pedido->id }},
+                                        </a>
+                                    @endforeach
                                 </td>
                             </tr>
                         @endforeach

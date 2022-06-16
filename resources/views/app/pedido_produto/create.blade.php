@@ -28,6 +28,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome do Produto</th>
+                            <th>Quantidade</th>
                             <th>Data de Inclusão</th>
                             <th></th>
                         </tr>
@@ -37,6 +38,7 @@
                             <tr>
                                 <td>{{ $produto->id }}</td>
                                 <td>{{ $produto->nome }}</td>
+                                <td>{{ $produto->pivot->quantidade }}</td>
                                 <td>{{ $produto->pivot->created_at }}</td>
                                 <td>
                                     <form id="form_{{ $pedido->id }}_{{ $produto->id }}" method="post" action="{{ route('pedido-produto.destroy', ['pedido' => $pedido->id, 'produto' => $produto->id ]) }}">

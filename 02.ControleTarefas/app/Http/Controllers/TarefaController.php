@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TarefaController extends Controller
 {
@@ -19,7 +20,17 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        //
+        /*if (!auth()->check()) {
+            return view('auth.login');
+        }
+
+        return auth()->user()->name . " você está logado no sistema!";*/
+
+        if (!Auth::check()) {
+            return view('auth.login');
+        }
+
+        return Auth::user()->name . " você está logado no sistema!";
     }
 
     /**

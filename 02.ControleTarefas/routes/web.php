@@ -28,4 +28,6 @@ Route::resource('tarefa', 'App\Http\Controllers\TarefaController');
 
 Route::get('/mail-teste', function() {
     return new MensagemTesteMail();
+    //Mail::to('dcunhamaciel@gmail.com')->send(new MensagemTesteMail());    
+    //return 'E-mail enviado com sucesso!';
 });

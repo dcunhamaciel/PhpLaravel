@@ -54,20 +54,22 @@
                             cargaHoraria: '40 horas' 
                         }
                     ]
-                }
+                },
+                numero1: 10,
+                numero2: 5
             },
             methods: {
                 somar: function somar() {
-                    return 4 + 2;
+                    return this.numero1 + this.numero2;
                 },
                 subtrair: function() {
-                    return 4 - 2;
+                    return this.numero1 - this.numero2;
                 },
                 multiplicar: () => {
-                    return 4 * 2;
+                    return this.numero1 * this.numero2; // contexo léxico , não é possível acessar o "this"
                 },
                 dividir() {
-                    return 4 / 2
+                    return this.numero1 / this.numero2;
                 }
             }
         }

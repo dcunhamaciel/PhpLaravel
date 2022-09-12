@@ -8,6 +8,17 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="app">{{ mensagem }}</div>
 
+    <script>
+        options = {
+            el: '#app',
+            data: {
+                mensagem: 'Primeiro template controlado pelo Vue'
+            }
+        }
+
+        const vueModel = new Vue(options);
+    </script>
 </body>
 </html>

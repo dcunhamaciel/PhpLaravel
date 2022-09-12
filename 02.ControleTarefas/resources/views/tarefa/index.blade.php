@@ -14,7 +14,8 @@
                             <div class="float-end">
                                 <a href="{{ route('tarefa.create') }}" class="me-3">Nova</a>
                                 <a href="{{ route('tarefa.exportar', ['extensao' => 'xlsx']) }}" class="me-3">XLSX</a>
-                                <a href="{{ route('tarefa.exportar', ['extensao' => 'csv']) }}">CSV</a>
+                                <a href="{{ route('tarefa.exportar', ['extensao' => 'csv']) }}" class="me-3">CSV</a>
+                                <a href="{{ route('tarefa.exportar', ['extensao' => 'pdf']) }}">PDF</a>
                             </div>
                         </div>
                     </div>

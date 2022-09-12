@@ -149,7 +149,7 @@ class TarefaController extends Controller
 
     public function exportar($extensao)
     {
-        $extensoesPermitidas = ['xlsx', 'csv'];
+        $extensoesPermitidas = ['xlsx', 'csv', 'pdf'];
 
         if (!in_array($extensao, $extensoesPermitidas)) {
             return redirect()->route('tarefa.index');

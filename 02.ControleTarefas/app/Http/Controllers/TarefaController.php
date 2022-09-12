@@ -90,7 +90,7 @@ class TarefaController extends Controller
      */
     public function edit(Tarefa $tarefa)
     {
-        //
+        return view('tarefa.edit', ['tarefa' => $tarefa]);
     }
 
     /**
@@ -102,7 +102,15 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa)
     {
-        //
+        $request->validate([
+            'tarefa' => 'required',
+            'data_limite_conclusao' => 'required'
+        ]);
+
+        $tarefa->update($request->all());
+        $tarefa->save();
+        
+        return redirect()->route('tarefa.show', ['tarefa' => $tarefa]);
     }
 
     /**

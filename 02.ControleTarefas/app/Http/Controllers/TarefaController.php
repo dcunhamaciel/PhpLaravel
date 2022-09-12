@@ -31,8 +31,10 @@ class TarefaController extends Controller
         if (!Auth::check()) {
             return view('auth.login');
         }
+        
+        $tarefas = Tarefa::where('user_id', auth()->user()->id)->get();
 
-        return Auth::user()->name . " você está logado no sistema!";
+        return view('tarefa.index', ['tarefas' => $tarefas]);
     }
 
     /**

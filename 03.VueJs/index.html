@@ -18,7 +18,15 @@
         Hobbie: {{ hobbies[2] }}        
         <br>
         Perfil: {{ perfil.nome }}, {{ perfil.cursos[0].nome }}
-    </div>    
+        <br><br><br>
+        Chamando a função somar: {{ somar() }}
+        <br>
+        Chamando a função anônima subtrair: {{ subtrair() }}
+        <br>
+        Chamando a função arrow multiplicar: {{ multiplicar() }}
+        <br>
+        Chamando a função dividir: {{ dividir() }}        
+    </div>        
 
     <script>
         options = {
@@ -46,6 +54,20 @@
                             cargaHoraria: '40 horas' 
                         }
                     ]
+                }
+            },
+            methods: {
+                somar: function somar() {
+                    return 4 + 2;
+                },
+                subtrair: function() {
+                    return 4 - 2;
+                },
+                multiplicar: () => {
+                    return 4 * 2;
+                },
+                dividir() {
+                    return 4 / 2
                 }
             }
         }

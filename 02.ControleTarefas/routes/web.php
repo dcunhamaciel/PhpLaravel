@@ -24,6 +24,9 @@ Auth::routes(['verify' => true]);
     ->name('home')
     ->middleware('verified');*/
 
+Route::get('tarefa/exportar', 'App\Http\Controllers\TarefaController@exportar')
+    ->name('tarefa.exportar');
+
 //Route::resource('tarefa', 'App\Http\Controllers\TarefaController')->middleware('auth');
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController')
     ->middleware('verified');

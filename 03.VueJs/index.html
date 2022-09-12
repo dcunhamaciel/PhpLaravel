@@ -8,13 +8,45 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app">{{ mensagem }}</div>
+    <div id="app">
+        {{ mensagem }}
+        <br>
+        Valor total: {{ valorTotal }}
+        <br>
+        Logado: {{ logado }}
+        <br>
+        Hobbie: {{ hobbies[2] }}        
+        <br>
+        Perfil: {{ perfil.nome }}, {{ perfil.cursos[0].nome }}
+    </div>    
 
     <script>
         options = {
             el: '#app',
             data: {
-                mensagem: 'Primeiro template controlado pelo Vue'
+                mensagem: 'Primeiro template controlado pelo Vue',
+                valorTotal: 150.57,
+                logado: true,
+                hobbies: [
+                    'Dormir',
+                    'Colecionáveis',
+                    'Correr',
+                    'Trilhas'
+                ],
+                perfil: {
+                    nome: 'Diego Maciel',
+                    idade: 38,
+                    cursos: [
+                        { 
+                            nome: 'Laravel', 
+                            cargaHoraria: '50 horas' 
+                        },
+                        { 
+                            nome: 'Banco de Dados Relacional', 
+                            cargaHoraria: '40 horas' 
+                        }
+                    ]
+                }
             }
         }
 

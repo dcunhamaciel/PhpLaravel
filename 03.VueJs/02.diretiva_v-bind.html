@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+        .verde {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <a v-bind:href="site">Site</a>
+        <p v-bind:class="cor">Entendendo a diretiva v-bind</p>
+        <input v-bind:placeholder="instrucaoDePreenchimento" type="text">
+        <br>
+        <input v-bind:value="valor" type="text">
+        <br>
+        <input v-bind:checked="check" type="checkbox">
+    </div>        
+
+    <script>
+        options = {
+            el: '#app',
+            data: {
+                site: 'https://www.google.com',
+                cor: 'verde',
+                instrucaoDePreenchimento: 'Teste de v-bind',
+                valor: 'Entendendo a diretiva v-bind',
+                check: true
+            },
+            methods: {}
+        }
+
+        const vueModel = new Vue(options);
+    </script>
+</body>
+</html>

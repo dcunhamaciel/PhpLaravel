@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input id="textoSelect" type="text">
+        <br>
+        <input id="textoDiv" type="text">
+        <br>
+        <select id="opcoes">
+            <option value="A">Opção 1</option>
+            <option value="B">Opção 2</option>
+            <option value="C">Opção 3</option>
+        </select>
+        <button @click="selecionarElementoFilho()">Botão</button>
+        <div id="bloco">Conteúdo interno da div</div>
+    </div>        
+
+    <script>
+        options = {
+            el: '#app',
+            data: {},
+            methods: {
+                selecionarElementoFilho() {
+                    textoSelect.value = opcoes.value;
+                    textoDiv.value = bloco.innerHTML;
+                }
+            }
+        }
+
+        const vueModel = new Vue(options);
+    </script>
+</body>
+</html>

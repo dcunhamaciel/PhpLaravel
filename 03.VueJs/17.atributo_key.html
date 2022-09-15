@@ -49,12 +49,17 @@
             </li>
             <button @click="misturarArray()">Misturar Publicações</button>
         </ul>
+        <hr>
+        <ul>
+            <li v-for="n in numero">{{ n }}</li>
+        </ul>
     </div>        
 
     <script>
         options = {
             el: '#app',
             data: {
+                numero: 5,
                 cursos: ['Laravel', 'Web Completo', 'Banco de Dados', 'Solid', 'Angular'],
                 cursosObjeto: {
                     1000: {

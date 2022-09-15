@@ -53,6 +53,13 @@
         <ul>
             <li v-for="n in numero">{{ n }}</li>
         </ul>
+        <hr>
+        <ul>
+            <li v-for="comentario in comentarios">{{ comentario.id }} - {{ comentario.comentario }}</li>
+        </ul>
+        <button @click="adicionarComentario()">Adicionar Comentário</button>
+        <button @click="removerComentario()">Remover Comentário</button>
+        <button @click="modificarComentario()">Modificar Comentário</button>
     </div>        
 
     <script>
@@ -84,6 +91,20 @@
                         id: 3,
                         publicacao: 'Publicação 3'
                     }                                        
+                ],
+                comentarios: [
+                    {
+                        id: 1,
+                        comentario: 'Comentário 1'
+                    },
+                    {
+                        id: 2,
+                        comentario: 'Comentário 2'
+                    },
+                    {
+                        id: 3,
+                        comentario: 'Comentário 3'
+                    }                    
                 ]
             },
             methods: {
@@ -95,6 +116,29 @@
                     misturado[2] = this.publicacoes[1];
 
                     this.publicacoes = misturado;
+                },
+                adicionarComentario() {
+                    let idComentario = this.comentarios.length + 1;
+
+                    let comentario = {
+                        id: idComentario,
+                        comentario: 'Comentário ' + idComentario
+                    }
+                     
+                    this.comentarios.push(comentario);
+                },
+                removerComentario() {
+                    this.comentarios.pop();
+                },
+                modificarComentario() {
+                    let comentario = this.comentarios[1];
+
+                    comentario = {
+                        id: 10,
+                        comentario: 'Comentário Atualizado 10'
+                    }
+
+                    this.$set(this.comentarios, 1, comentario);
                 }
             }
         }

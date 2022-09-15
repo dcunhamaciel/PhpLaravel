@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(curso, indice) in cursos">{{ indice }} = {{ curso }}</li>
+        </ul>
+        <hr>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(curso, id) in cursosObjeto">
+                    <td>{{ id }}</td>
+                    <td>{{ curso.titulo }}</td>
+                    <td>{{ curso.descricao }}</td>
+                </tr>                
+            </tbody>
+            <tbody>
+                <tr v-for="({titulo, descricao}, id) in cursosObjeto"> <!-- destructuring assigment -->
+                    <td>{{ id }}</td>
+                    <td>{{ titulo }}</td>
+                    <td>{{ descricao }}</td>
+                </tr>                
+            </tbody>            
+        </table>
+        <hr>
+        <ul>
+            <li v-for="publicacao in publicacoes" style="border: solid 1px; margin-bottom: 10px" :key="publicacao.id">
+                <div>
+                    {{ publicacao.publicacao }}
+                    <hr>
+                    <input type="text">
+                </div>                
+            </li>
+            <button @click="misturarArray()">Misturar Publicações</button>
+        </ul>
+    </div>        
+
+    <script>
+        options = {
+            el: '#app',
+            data: {
+                cursos: ['Laravel', 'Web Completo', 'Banco de Dados', 'Solid', 'Angular'],
+                cursosObjeto: {
+                    1000: {
+                        titulo: 'Laravel',
+                        descricao: 'Domine o framework PHP mais poderoso do mundo!'
+                    },
+                    1001: {
+                        titulo: 'Vue',
+                        descricao: 'Aprenda o framework Javascript VUE!'
+                    }
+                },
+                publicacoes: [
+                    {
+                        id: 1,
+                        publicacao: 'Publicação 1'
+                    },
+                    {
+                        id: 2,
+                        publicacao: 'Publicação 2'
+                    },
+                    {
+                        id: 3,
+                        publicacao: 'Publicação 3'
+                    }                                        
+                ]
+            },
+            methods: {
+                misturarArray() {
+                    let misturado = [];
+
+                    misturado[0] = this.publicacoes[2];
+                    misturado[1] = this.publicacoes[0];
+                    misturado[2] = this.publicacoes[1];
+
+                    this.publicacoes = misturado;
+                }
+            }
+        }
+
+        const vueModel = new Vue(options);
+    </script>
+</body>
+</html>

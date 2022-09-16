@@ -19,13 +19,11 @@
         <hr>
         <h4>Último Paciente Cadastrado</h4>
         <p v-if="pacientes.length > 0">
-            Nome: {{ pacientes[pacientes.length - 1].nome }},
-            Idade: {{ pacientes[pacientes.length - 1].idade }},
-            Plano: {{ pacientes[pacientes.length - 1].plano }}
+            {{ ultimoPaciente }}
         </p>
         <hr>
         <h4>Pacientes do Plano Ouro</h4>
-        <p v-for="paciente in pacientes">{{ paciente.plano == 'Ouro' ?  paciente.nome : '' }}</p>
+        <p v-for="paciente in pacientesPlanoOuro">{{ paciente.nome }}</p>
         <hr>
         <h4>Pacientes Cadastrados</h4>
         <p v-for="paciente in pacientes">{{ paciente.nome }}</p>
@@ -46,6 +44,23 @@
                     }
 
                     this.pacientes.push(paciente);
+                }
+            },
+            computed: {
+                ultimoPaciente() {
+                    let key = this.pacientes.length - 1;
+                    let txt = '';
+
+                    txt += 'Nome: ' + this.pacientes[key].nome+', ';
+                    txt += 'Idade: ' + this.pacientes[key].idade+', ';
+                    txt += 'Plano: ' + this.pacientes[key].plano;
+
+                    return txt;
+                },
+                pacientesPlanoOuro() {
+                    return this.pacientes.filter(function(paciente) {
+                        return paciente.plano == 'Ouro';
+                    });
                 }
             }
         }

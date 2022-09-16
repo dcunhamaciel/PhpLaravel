@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="adicionarCampo()">Adicionar Campo</button>
+        <div v-for="campo in listaCampos">
+            <input @blur="alterarCampo(campo.id)" :id="'descricao' + campo.id" :value="campo.descricao" type="text" placeholder="Descrição"></input>
+            <select @change="alterarCampo(campo.id)" :id="'tipo' + campo.id" v-model="campo.tipo" placeholder="Tipo">
+                <option v-for="tipo in listaTipos" :value="tipo.codigo">
+                    {{ tipo.descricao }}
+                </option>
+            </select>
+            <input @click="alterarCampo(campo.id)" :id="'obrigatorio' + campo.id" :checked="campo.obrigatorio" type="checkbox">Obrigatório</input>
+            <button @click="excluirCampo(campo.id)">Excluir</button>
+        </div>
+    </div>
+
+    <script>
+        options = {
+            el: '#app',
+            data: {
+                listaCampos: [],
+                listaTipos: [
+                    { codigo: 'T', descricao: 'Texto' },
+                    { codigo: 'N', descricao: 'Número' },
+                    { codigo: 'D', descricao: 'Data' }
+                ]
+            },
+            methods: {
+                adicionarCampo() {
+                    let idCampo = this.listaCampos.reduce(function(previous, next) {
+                        return previous < next ? previous.id : next.id;
+                    }, 0);
+ 
+                    idCampo++;
+
+                    let campo = {
+                        id: idCampo,
+                        descricao: '',
+                        tipo: '',
+                        obrigatorio: false
+                    }
+
+                    this.listaCampos.push(campo);
+                },
+                alterarCampo(campoId) {
+                    let campo = this.listaCampos.find(function(campo) {
+                        return campo.id === campoId;
+                    });
+
+                    campo.descricao = this.$el.querySelector('#descricao' + campoId).value;
+                    campo.tipo = this.$el.querySelector('#tipo' + campoId).value;
+                    campo.obrigatorio = this.$el.querySelector('#obrigatorio' + campoId).checked;
+                },
+                excluirCampo(campoId) {
+                    let indice = this.listaCampos.findIndex(function(campo) {
+                        return campo.id === campoId;
+                    });
+
+                    this.listaCampos.splice(indice, 1);
+                }
+            }
+        }
+
+        const vueModel = new Vue(options);
+    </script>
+</body>
+</html>

@@ -20,7 +20,6 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        //$marcas = Marca::all();
         $marcas = $this->marca::all();
 
         return $marcas;
@@ -34,7 +33,6 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        //$marca = Marca::create($request->all());
         $marca = $this->marca->create($request->all());
 
         return $marca;
@@ -48,7 +46,11 @@ class MarcaController extends Controller
      */
     public function show(int $id)
     {
-        $marca = $this->find($id);
+        $marca = $this->marca->find($id);
+
+        if (empty($marca)) {
+            return ['erro' => 'Recurso pesquisado não existe.'];
+        }
 
         return $marca;
     }
@@ -62,7 +64,12 @@ class MarcaController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $marca = $this->find($id);
+        $marca = $this->marca->find($id);
+
+        if (empty($marca)) {
+            return ['erro' => 'Não foi possível realizar a atualização. Recurso solicitado não existe.'];
+        }
+        
         $marca->update($request->all());
 
         return $marca;
@@ -76,7 +83,12 @@ class MarcaController extends Controller
      */
     public function destroy(int $id)
     {
-        $marca = $this->find($id);
+        $marca = $this->marca->find($id);
+
+        if (empty($marca)) {
+            return ['erro' => 'Não foi possível realizar a exclusão. Recurso solicitado não existe.'];
+        }
+
         $marca->delete();
 
         return ['msg' => 'A marca foi removida com sucesso!'];

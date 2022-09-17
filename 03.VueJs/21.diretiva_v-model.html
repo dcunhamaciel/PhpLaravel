@@ -15,13 +15,41 @@
         <br>
         <!--<input type="text" :value="paciente" @keyup="paciente = $event.target.value">-->
         <input type="text" v-model="paciente">
+        <hr>
+        <input type="radio" value="F" v-model="sexo">Feminino
+        <input type="radio" value="M" v-model="sexo">Masculino
+        <br>
+        {{ sexo }}
+        <hr>
+        <select v-model="plano">
+            <option value="" disabled>Selecione um Plano</option>
+            <option value="1">Básico 1</option>
+            <option value="2">Básico 2</option>
+            <option value="3">Básico 3</option>
+        </select>
+        <br>
+        {{ plano }}
+        <hr>
+        <input type="checkbox" value="100" v-model="doencas">Asma
+        <input type="checkbox" value="101" v-model="doencas">Diabetes
+        <input type="checkbox" value="102" v-model="doencas">Rinite
+        <br>
+        {{ doencas }}'
+        <hr>
+        <textarea v-model="diagnostico" cols="30" rows="10"></textarea>
+        <br>
+        {{ diagnostico }}
     </div>
 
     <script>
         options = {
             el: '#app',
             data: {
-                paciente: 'João da Silva'
+                paciente: 'João da Silva',
+                sexo: '',
+                plano: '',
+                doencas: [],
+                diagnostico: ''
             },
             methods: {},
             computed: {}

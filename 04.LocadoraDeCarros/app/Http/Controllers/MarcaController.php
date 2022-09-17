@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Marca;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
 
 class MarcaController extends Controller
 {
@@ -22,7 +24,11 @@ class MarcaController extends Controller
     {
         $marcas = $this->marca::all();
 
-        return $marcas;
+        $httpStatusCode = empty($marcas) 
+            ? Response::HTTP_NO_CONTENT 
+            : Response::HTTP_OK;
+        
+        return response()->json($marcas, $httpStatusCode);
     }
 
     /**
@@ -35,7 +41,7 @@ class MarcaController extends Controller
     {
         $marca = $this->marca->create($request->all());
 
-        return $marca;
+        return response()->json($marca, Response::HTTP_CREATED);
     }
 
     /**
@@ -49,10 +55,10 @@ class MarcaController extends Controller
         $marca = $this->marca->find($id);
 
         if (empty($marca)) {
-            return ['erro' => 'Recurso pesquisado não existe.'];
+            return response()->json(['erro' => 'Recurso pesquisado não existe.'], Response::HTTP_NOT_FOUND);
         }
 
-        return $marca;
+        return response()->json($marca, Response::HTTP_OK);
     }
 
     /**
@@ -67,12 +73,12 @@ class MarcaController extends Controller
         $marca = $this->marca->find($id);
 
         if (empty($marca)) {
-            return ['erro' => 'Não foi possível realizar a atualização. Recurso solicitado não existe.'];
+            return response()->json(['erro' => 'Não foi possível realizar a atualização. Recurso solicitado não existe.'], Response::HTTP_NOT_FOUND);
         }
         
         $marca->update($request->all());
 
-        return $marca;
+        return response()->json($marca, Response::HTTP_OK);
     }
 
     /**
@@ -86,11 +92,11 @@ class MarcaController extends Controller
         $marca = $this->marca->find($id);
 
         if (empty($marca)) {
-            return ['erro' => 'Não foi possível realizar a exclusão. Recurso solicitado não existe.'];
+            return response()->json(['erro' => 'Não foi possível realizar a exclusão. Recurso solicitado não existe.'], Response::HTTP_NOT_FOUND);
         }
 
         $marca->delete();
 
-        return ['msg' => 'A marca foi removida com sucesso!'];
+        return response()->json(['msg' => 'A marca foi removida com sucesso!'], Response::HTTP_ACCEPTED);
     }
 }

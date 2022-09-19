@@ -14,7 +14,7 @@ class Marca extends Model
     public function rules(): array
     {
         return [
-            'nome' => 'required|min:3|unique:marcas',
+            'nome' => 'required|min:3|unique:marcas,nome,' . $this->id,
             'imagem' => 'required'
         ];
     }

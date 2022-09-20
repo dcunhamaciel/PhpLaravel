@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Marca;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class MarcaController extends Controller
 {
@@ -98,6 +99,10 @@ class MarcaController extends Controller
             $request->validate($marca->rules(), $marca->feedback());
         }
 
+        if ($request->file('image')) {
+            Storage::disk('public')->delete($marca->imagem);
+        }
+
         $imagem = $request->file('imagem');
         $imagemUrn = $imagem->store('imagens', 'public');        
         
@@ -122,6 +127,8 @@ class MarcaController extends Controller
         if (empty($marca)) {
             return response()->json(['erro' => 'Não foi possível realizar a exclusão. Recurso solicitado não existe.'], Response::HTTP_NOT_FOUND);
         }
+
+        Storage::disk('public')->delete($marca->imagem);
 
         $marca->delete();
 

@@ -6,7 +6,6 @@ use App\Models\Marca;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-
 class MarcaController extends Controller
 {
     private Marca $marca;
@@ -15,6 +14,7 @@ class MarcaController extends Controller
     {
         $this->marca = $marca;        
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -96,9 +96,15 @@ class MarcaController extends Controller
             $request->validate($regrasPatch, $marca->feedback());
         } else {
             $request->validate($marca->rules(), $marca->feedback());
-        }        
+        }
 
-        $marca->update($request->all());
+        $imagem = $request->file('imagem');
+        $imagemUrn = $imagem->store('imagens', 'public');        
+        
+        $marca->update([
+            'nome' => $request->nome,
+            'imagem' => $imagemUrn
+        ]);
 
         return response()->json($marca, Response::HTTP_OK);
     }

@@ -41,7 +41,13 @@ class MarcaController extends Controller
     {
         $request->validate($this->marca->rules(), $this->marca->feedback());
 
-        $marca = $this->marca->create($request->all());
+        $imagem = $request->file('imagem');
+        $imagemUrn = $imagem->store('imagens', 'public');
+
+        $marca = $this->marca->create([
+            'nome' => $request->nome,
+            'imagem' => $imagemUrn
+        ]);
 
         return response()->json($marca, Response::HTTP_CREATED);
     }

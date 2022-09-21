@@ -25,12 +25,20 @@ class ModeloController extends Controller
     {
         $modelos = [];
 
-        if ($request->has('atributos')) {
-            $atributos = $request->atributos;
-            
-            $modelos = $this->modelo->selectRaw($atributos)->with('marca')->get();
+        if ($request->has('atributos_marca')) {
+            $atributosMarca = $request->atributos_marca;
+
+            $modelos = $this->modelo->with('marca:id,' . $atributosMarca);
         } else {
-            $modelos = $this->modelo->with('marca')->get();
+            $modelos = $this->modelo->with('marca');
+        }
+
+        if ($request->has('atributos')) {
+            $atributos = $request->atributos;            
+            
+            $modelos = $modelos->selectRaw($atributos)->get();
+        } else {
+            $modelos = $modelos->get();
         }
 
         $httpStatusCode = empty($modelos) 

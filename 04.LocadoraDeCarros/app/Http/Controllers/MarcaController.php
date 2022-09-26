@@ -21,9 +21,31 @@ class MarcaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $marcas = $this->marca->with('modelos')->get();
+        $marcas = [];
+
+        if ($request->has('atributos_modelos')) {
+            $atributosModelos = $request->atributos_modelos;
+
+            $marcas = $this->marca->with('modelos:id,' . $atributosModelos);
+        } else {
+            $marcas = $this->marca->with('modelos');
+        }
+
+        if ($request->has('filtro')) {
+            $condicoes = explode(':', $request->filtro);
+
+            $marcas = $marcas->where($condicoes[0], $condicoes[1], $condicoes[2]);
+        }
+
+        if ($request->has('atributos')) {
+            $atributos = $request->atributos;            
+            
+            $marcas = $marcas->selectRaw($atributos)->get();
+        } else {
+            $marcas = $marcas->get();
+        }
 
         $httpStatusCode = empty($marcas) 
             ? Response::HTTP_NO_CONTENT 

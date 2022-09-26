@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Modelo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Modelo;
+use App\Repositories\ModeloRepository;
 
 class ModeloController extends Controller
 {
@@ -23,29 +24,29 @@ class ModeloController extends Controller
      */
     public function index(Request $request)
     {
-        $modelos = [];
+        $modeloRepository = new ModeloRepository($this->modelo);
+
+        $atributosMarca = '';
 
         if ($request->has('atributos_marca')) {
-            $atributosMarca = $request->atributos_marca;
-
-            $modelos = $this->modelo->with('marca:id,' . $atributosMarca);
+            $atributosMarca = 'marca:id,' . $request->atributos_marca;                        
         } else {
-            $modelos = $this->modelo->with('marca');
+            $atributosMarca = 'marca';
         }
 
-        if ($request->has('filtro')) {
-            $condicoes = explode(':', $request->filtro);
+        $modeloRepository->selectAtributosRegistrosRelacionados($atributosMarca);
 
-            $modelos = $modelos->where($condicoes[0], $condicoes[1], $condicoes[2]);
+        if ($request->has('filtro')) {
+            $filtro = $request->filtro;
+            $modeloRepository->addFiltro($filtro);
         }
 
         if ($request->has('atributos')) {
             $atributos = $request->atributos;            
-            
-            $modelos = $modelos->selectRaw($atributos)->get();
-        } else {
-            $modelos = $modelos->get();
+            $modeloRepository->selectAtributos($atributos);
         }
+                       
+        $modelos = $modeloRepository->getResultado();
 
         $httpStatusCode = empty($modelos) 
             ? Response::HTTP_NO_CONTENT 

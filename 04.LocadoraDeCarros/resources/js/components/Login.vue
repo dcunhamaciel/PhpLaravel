@@ -3,10 +3,11 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Login (Vue Component)</div>
+                    <div class="card-header">Login</div>
 
                     <div class="card-body">
                         <form method="POST" action="">
+                            <input type="hidden" name="_token" :value="csrf_token">
                             <div class="row mb-3">
                                 <label for="email" class="col-md-4 col-form-label text-md-end">E-mail</label>
 
@@ -55,5 +56,7 @@
 </template>
 
 <script>
-
+    export default {
+        props: ['csrf_token']
+    }
 </script>

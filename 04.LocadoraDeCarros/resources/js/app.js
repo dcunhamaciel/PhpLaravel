@@ -30,6 +30,9 @@ app.component('marcas-component', Marcas);
 import InputContainer from './components/InputContainer.vue';
 app.component('input-container-component', InputContainer);
 
+import Table from './components/Table.vue';
+app.component('table-component', Table);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

@@ -2,10 +2,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card mb-3">
-                    <div class="card-header">Busca de Marcas</div>
-
-                    <div class="card-body">
+                <card-component titulo="Busca de Marcas">
+                    <template v-slot:conteudo>
                         <div class="form-row">
                             <div class="col mb-3">
                                 <input-container-component id="inputId" id-help="idHelp" titulo="ID" texto-ajuda="Opcional. Informe o ID da Marca">
@@ -18,24 +16,20 @@
                                 </input-container-component>                                
                             </div>                        
                         </div>
-                    </div>
-
-                    <div class="card-footer">
+                    </template>
+                    <template v-slot:rodape>
                         <button type="submit" class="btn btn-primary btn-sm float-end">Pesquisar</button>
-                    </div>
-                </div>
+                    </template>
+                </card-component>
 
-                <div class="card">
-                    <div class="card-header">Relação Marcas</div>
-
-                    <div class="card-body">
+                <card-component titulo="Relação Marcas">
+                    <template v-slot:conteudo>
                         <table-component></table-component>
-                    </div>
-
-                    <div class="card-footer">
+                    </template>
+                    <template v-slot:rodape>
                         <button type="button" class="btn btn-primary btn-sm float-end">Adicionar</button>
-                    </div>
-                </div>                
+                    </template>
+                </card-component>             
             </div>
         </div>
     </div>

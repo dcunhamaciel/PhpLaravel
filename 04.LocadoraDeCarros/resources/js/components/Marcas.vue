@@ -22,9 +22,9 @@
                     </template>
                 </card-component>
 
-                <card-component titulo="Relação Marcas">
+                <card-component titulo="Relação de Marcas">
                     <template v-slot:conteudo>
-                        <table-component></table-component>
+                        <table-component :titulos="['ID', 'Nome', 'Imagem']" :dados="marcas"></table-component>
                     </template>
                     <template v-slot:rodape>
                         <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>
@@ -66,7 +66,8 @@
                 nomeMarca: '',
                 arquivoImagem: [],
                 transacaoStatus: '',
-                transacaoDetalhes: {}
+                transacaoDetalhes: {},
+                marcas: []
             }
         },
         computed: {
@@ -86,6 +87,22 @@
             carregarImagem(event) {
                 this.arquivoImagem = event.target.files;
             },
+            carregarLista() {
+                let config = {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': this.token
+                    }
+                }
+
+                axios.get(this.urlBase, config)
+                    .then(response => {
+                        this.marcas = response.data;
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    });
+            },            
             salvar() {
                 let formData = new FormData();
                 formData.append('nome', this.nomeMarca);
@@ -114,6 +131,9 @@
                         };                        
                     });
             }
+        },
+        mounted() {
+            this.carregarLista();
         }
     }
 </script>

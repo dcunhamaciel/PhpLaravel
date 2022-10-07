@@ -46,7 +46,7 @@ class MarcaController extends Controller
             $marcaRepository->selectAtributos($atributos);
         }
                        
-        $marcas = $marcaRepository->getResultadoPaginado(3);
+        $marcas = $marcaRepository->getResultadoPaginado(5);
 
         $httpStatusCode = empty($marcas) 
             ? Response::HTTP_NO_CONTENT 

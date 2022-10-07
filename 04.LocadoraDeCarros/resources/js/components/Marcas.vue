@@ -32,6 +32,9 @@
                                 created_at: { descricao: 'Data Inclusão', tipo: 'data' }
                             }" 
                             :dados="marcas.data"
+                            :visualizar="true"
+                            :atualizar="true"
+                            :remover="true"
                         ></table-component>
                     </template>
                     <template v-slot:rodape>

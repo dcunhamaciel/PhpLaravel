@@ -32,9 +32,9 @@
                                 created_at: { descricao: 'Data Inclusão', tipo: 'data' }
                             }" 
                             :dados="marcas.data"
-                            :visualizar="true"
-                            :atualizar="true"
-                            :remover="true"
+                            :visualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar' }"
+                            :atualizar="{ visivel: true, dataToggle: '', dataTarget: '' }"
+                            :remover="{ visivel: true, dataToggle: '', dataTarget: '' }"
                         ></table-component>
                     </template>
                     <template v-slot:rodape>
@@ -54,6 +54,7 @@
                 </card-component>             
             </div>
         </div>
+
         <modal-component id="modalMarca" titulo="Adicionar Marca">
             <template v-slot:alertas>
                 <alert-component tipo="success" titulo="Marca cadastrada com sucesso" :detalhes="transacaoDetalhes" v-if="transacaoStatus == 'adicionado'"></alert-component>
@@ -76,6 +77,16 @@
                 <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </template>
+        </modal-component>
+
+        <modal-component id="modalMarcaVisualizar" titulo="Marca">
+            <template v-slot:conteudo>
+                Teste
+            </template>
+
+            <template v-slot:rodape>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </template>            
         </modal-component>
     </div>
 </template>

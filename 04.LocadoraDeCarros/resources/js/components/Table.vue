@@ -20,7 +20,7 @@
                     </span>
                 </td>
                 <td>
-                    <button v-if="visualizar.visivel" class="btn btn-outline-primary btn-sm" :data-bs-toggle="visualizar.dataToggle" :data-bs-target="visualizar.dataTarget">Visualizar</button>
+                    <button v-if="visualizar.visivel" class="btn btn-outline-primary btn-sm" :data-bs-toggle="visualizar.dataToggle" :data-bs-target="visualizar.dataTarget" @click="setStore(obj)">Visualizar</button>
                     <button v-if="atualizar.visivel" class="btn btn-outline-primary btn-sm">Atualizar</button>
                     <button v-if="remover.visivel" class="btn btn-outline-danger btn-sm">Remover</button>
                 </td>
@@ -32,6 +32,11 @@
 <script>
     export default { 
         props: ['titulos', 'dados', 'visualizar', 'atualizar', 'remover'],
+        methods: {
+            setStore(obj) {
+                this.$store.state.item = obj;
+            }
+        },
         computed: {
             dadosFiltrados() {
                 let campos = Object.keys(this.titulos);

@@ -81,7 +81,18 @@
 
         <modal-component id="modalMarcaVisualizar" titulo="Marca">
             <template v-slot:conteudo>
-                Teste
+                <input-container-component titulo="ID">
+                    <input type="text" class="form-control" :value="$store.state.item.id" disabled>
+                </input-container-component>
+                <input-container-component titulo="Nome">
+                    <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+                </input-container-component>
+                <input-container-component titulo="Data de Inclusão">
+                    <input type="text" class="form-control" :value="$store.state.item.created_at" disabled>
+                </input-container-component>                
+                <input-container-component titulo="">
+                    <img :src="'/storage/' + $store.state.item.imagem">
+                </input-container-component>                
             </template>
 
             <template v-slot:rodape>

@@ -16,7 +16,7 @@ import { createStore } from 'vuex'
 
 const store = createStore({
     state: {
-        teste: 'Store Vuex'
+        item: {}
     }
 });
 

@@ -33,19 +33,23 @@
             </div>
         </div>
         <modal-component id="modalMarca" titulo="Adicionar Marca">
+            <template v-slot:alertas>
+                <alert-component tipo="success" titulo="Marca cadastrada com sucesso" :detalhes="transacaoDetalhes" v-if="transacaoStatus == 'adicionado'"></alert-component>
+                <alert-component tipo="danger" titulo="Erro ao cadastrar a Marca" :detalhes="transacaoDetalhes" v-if="transacaoStatus == 'erro'"></alert-component>
+            </template>
+
             <template v-slot:conteudo>
                 <div class="form-group">
                     <input-container-component id="novoNome" id-help="novoNomeHelp" titulo="Nome" texto-ajuda="Informe o Nome da Marca">
                         <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp" placeholder="Nome" v-model="nomeMarca">
                     </input-container-component>
-                    {{ nomeMarca }}
 
                     <input-container-component id="novoImagem" id-help="novoImagemHelp" titulo="Imagem" texto-ajuda="Selecione uma Imagem">
                         <input type="file" class="form-control-file" id="novoImagem" aria-describedby="novoImagemHelp" placeholder="Selecione uma Imagem" @change="carregarImagem($event)">
                     </input-container-component>    
-                    {{ arquivoImagem }}      
                 </div>
             </template>
+
             <template v-slot:rodape>
                 <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -60,7 +64,9 @@
             return {
                 urlBase: 'http://localhost:8000/api/v1/marca',
                 nomeMarca: '',
-                arquivoImagem: []
+                arquivoImagem: [],
+                transacaoStatus: '',
+                transacaoDetalhes: []
             }
         },
         computed: {
@@ -95,10 +101,12 @@
 
                 axios.post(this.urlBase, formData, config)
                     .then(response => {
-                        console.log(response);
+                        this.transacaoStatus = 'adicionado';
+                        this.transacaoDetalhes = response;
                     })
                     .catch(errors => {
-                        console.log(errors);
+                        this.transacaoStatus = 'erro';
+                        this.transacaoDetalhes = errors.response;
                     });
             }
         }

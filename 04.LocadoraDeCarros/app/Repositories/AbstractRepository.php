@@ -32,4 +32,9 @@ abstract class AbstractRepository
     {
         return $this->model->get();
     }
+
+    public function getResultadoPaginado(int $numeroRegistros)
+    {
+        return $this->model->paginate($numeroRegistros);
+    }    
 }

@@ -31,11 +31,22 @@
                                 imagem: { descricao: 'Imagem', tipo: 'imagem' },
                                 created_at: { descricao: 'Data Inclusão', tipo: 'data' }
                             }" 
-                            :dados="marcas"
+                            :dados="marcas.data"
                         ></table-component>
                     </template>
                     <template v-slot:rodape>
-                        <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>
+                        <dir class="row">
+                            <div class="col-10">
+                                <paginate-component>
+                                    <li v-for="link, key in marcas.links" :key="key" @click="paginacao(link)" :class="link.active ? 'page-item active' : 'page-item'">
+                                        <a v-html="link.label" class="page-link"></a>
+                                    </li>
+                                </paginate-component>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>                            
+                            </div>                                                        
+                        </dir>
                     </template>
                 </card-component>             
             </div>
@@ -75,7 +86,7 @@
                 arquivoImagem: [],
                 transacaoStatus: '',
                 transacaoDetalhes: {},
-                marcas: []
+                marcas: { data: [] }
             }
         },
         computed: {
@@ -92,6 +103,12 @@
             }
         },
         methods: {
+            paginacao(link) {
+                if (link.url) {
+                    this.urlBase = link.url;
+                    this.carregarLista();
+                }
+            },
             carregarImagem(event) {
                 this.arquivoImagem = event.target.files;
             },

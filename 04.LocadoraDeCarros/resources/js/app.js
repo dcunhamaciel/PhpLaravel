@@ -6,6 +6,7 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import { createStore } from 'vuex'
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -13,7 +14,15 @@ import { createApp } from 'vue';
  * to use in your application's views. An example is included for you.
  */
 
+const store = createStore({
+    state: {
+        teste: 'Store Vuex'
+    }
+});
+
 const app = createApp({});
+
+app.use(store);
 
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);

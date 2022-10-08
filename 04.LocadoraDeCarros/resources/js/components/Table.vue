@@ -13,7 +13,7 @@
                         <img :src="'/storage/' + valor" width="30" height="30">
                     </span>
                     <span v-else-if="titulos[chaveValor].tipo == 'data'">
-                        ... {{ valor }}
+                        {{ formatarDataHora(valor) }}
                     </span>
                     <span v-else>
                         {{ valor }}
@@ -38,6 +38,13 @@
                 this.$store.state.transacao.status = '';
                 this.$store.state.transacao.mensagem = '';
                 this.$store.state.transacao.dados = '';
+            },
+            formatarDataHora(dataHora) {
+                if (!dataHora) {
+                    return '';
+                }
+
+                return new Date(dataHora).toLocaleString('br');
             }
         },
         computed: {

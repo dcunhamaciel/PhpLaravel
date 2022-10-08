@@ -44,15 +44,16 @@ axios.interceptors.request.use(
             return indice.startsWith('token=');
         });                
 
-        token = 'Bearer ' + token.split('=')[1];
+        if (token) {
+            token = 'Bearer ' + token.split('=')[1];
 
-        config.headers.Accept = 'application/json';
-        config.headers.Authorization = token;
+            config.headers.Accept = 'application/json';
+            config.headers.Authorization = token;
+        }
         
         return config;
     },
     error => {
-        console.log('erro request', error);
         return Promise.reject(error);
     }
 );
@@ -60,11 +61,17 @@ axios.interceptors.request.use(
 /* interceptar os responses da aplicação */
 axios.interceptors.response.use(
     response => {
-        console.log('interceptando response', response);
         return response;
     },
     error => {
-        console.log('erro response', error);
+        if (error.response && error.response.status && error.response.status == 401 && error.response.data.message == 'Token has expired') {
+            axios.post('http://localhost:8000/api/refresh')
+                .then(response => {
+                    document.cookie = 'token' + response.data.token;
+                    window.location.reload();
+                });
+        }
+        
         return Promise.reject(error);
     }
 );

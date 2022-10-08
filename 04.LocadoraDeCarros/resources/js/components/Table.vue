@@ -21,7 +21,7 @@
                 </td>
                 <td v-if="visualizar.visivel || atualizar.visivel || remover.visivel">
                     <button v-if="visualizar.visivel" class="btn btn-outline-primary btn-sm" :data-bs-toggle="visualizar.dataToggle" :data-bs-target="visualizar.dataTarget" @click="setStore(obj)">Visualizar</button>
-                    <button v-if="atualizar.visivel" class="btn btn-outline-primary btn-sm">Atualizar</button>
+                    <button v-if="atualizar.visivel" class="btn btn-outline-primary btn-sm" :data-bs-toggle="atualizar.dataToggle" :data-bs-target="atualizar.dataTarget" @click="setStore(obj)">Atualizar</button>
                     <button v-if="remover.visivel" class="btn btn-outline-danger btn-sm" :data-bs-toggle="remover.dataToggle" :data-bs-target="remover.dataTarget" @click="setStore(obj)">Remover</button>
                 </td>
             </tr>
@@ -37,6 +37,7 @@
                 this.$store.state.item = obj;
                 this.$store.state.transacao.status = '';
                 this.$store.state.transacao.mensagem = '';
+                this.$store.state.transacao.dados = '';
             }
         },
         computed: {

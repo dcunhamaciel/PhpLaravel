@@ -33,7 +33,7 @@
                             }" 
                             :dados="marcas.data"
                             :visualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar' }"
-                            :atualizar="{ visivel: true, dataToggle: '', dataTarget: '' }"
+                            :atualizar="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaAtualizar' }"
                             :remover="{ visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaRemover' }"
                         ></table-component>
                     </template>
@@ -99,6 +99,30 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </template>            
         </modal-component>
+
+        <modal-component id="modalMarcaAtualizar" titulo="Atualizar Marca">
+            <template v-slot:alertas>
+                <alert-component tipo='success' titulo='Transação realizada com sucesso' :detalhes="$store.state.transacao" v-if="$store.state.transacao.status == 'sucesso'"></alert-component>
+                <alert-component tipo='danger' titulo='Erro na transação' :detalhes="$store.state.transacao" v-if="$store.state.transacao.status == 'erro'"></alert-component>
+            </template>
+
+            <template v-slot:conteudo>
+                <div class="form-group">
+                    <input-container-component id="atualizarNome" id-help="atualizarNomeHelp" titulo="Nome" texto-ajuda="Informe o Nome da Marca">
+                        <input type="text" class="form-control" id="atualizarNome" aria-describedby="atualizarNomeHelp" placeholder="Nome" v-model="$store.state.item.nome">
+                    </input-container-component>
+
+                    <input-container-component id="atualizarImagem" id-help="atualizarImagemHelp" titulo="Imagem" texto-ajuda="Selecione uma Imagem">
+                        <input type="file" class="form-control-file" id="atualizarImagem" aria-describedby="atualizarImagemHelp" placeholder="Selecione uma Imagem" @change="carregarImagem($event)">
+                    </input-container-component>    
+                </div>
+            </template>
+
+            <template v-slot:rodape>
+                <button type="button" class="btn btn-primary" @click="atualizar()">Atualizar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </template>
+        </modal-component>    
 
         <modal-component id="modalMarcaRemover" titulo="Remover Marca">
             <template v-slot:alertas>
@@ -226,6 +250,38 @@
                             mensagem: errors.response.data.message,
                             dados: errors.response.data.errors
                         };                        
+                    });
+            },
+            atualizar() {
+                let url = this.urlBase + '/' + this.$store.state.item.id;
+
+                let formData = new FormData();
+                formData.append('_method', 'patch');
+                formData.append('nome', this.$store.state.item.nome);
+
+                if (this.arquivoImagem[0]) {
+                    formData.append('imagem', this.arquivoImagem[0]); 
+                }
+                
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Accept': 'application/json',
+                        'Authorization': this.token
+                    }
+                }
+
+                axios.post(url, formData, config)
+                    .then(response => {
+                        atualizarImagem.value = '';
+                        this.$store.state.transacao.status = 'sucesso';
+                        this.$store.state.transacao.mensagem = 'Marca atualizada com sucesso';
+                        this.carregarLista();
+                    })
+                    .catch(errors => {
+                        this.$store.state.transacao.status = 'erro';
+                        this.$store.state.transacao.mensagem = errors.response.data.mensage;
+                        this.$store.state.transacao.dados = errors.response.data.errors;
                     });
             },
             remover() {

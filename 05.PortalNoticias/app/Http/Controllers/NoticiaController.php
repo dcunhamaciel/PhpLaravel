@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Noticia;
 use App\Http\Requests\StoreNoticiaRequest;
 use App\Http\Requests\UpdateNoticiaRequest;
+use Illuminate\Support\Facades\Cache;
 
 class NoticiaController extends Controller
 {
@@ -15,7 +16,13 @@ class NoticiaController extends Controller
      */
     public function index()
     {
-        $noticias = Noticia::orderByDesc('created_at')->limit(10)->get();
+        //$noticias = Noticia::orderByDesc('created_at')->limit(10)->get();
+        $noticias = [];
+
+        Cache::put('site', 'dcunhamacie@gmail.com', 10);
+
+        $site = Cache::get('site');
+        echo $site;
         
         return view('noticia', ['noticias' => $noticias]);
     }
